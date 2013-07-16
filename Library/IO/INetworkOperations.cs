@@ -29,18 +29,6 @@ namespace Pop3.IO
 
         #endregion
 
-        #region Async Methods
-
-#if NET45 || NETFX_CORE
-        Task OpenAsync( string hostName, int port );
-
-        Task OpenAsync( string hostName, int port, bool useSsl );
-
-        Task<string> ReadAsync( );
-
-        Task WriteAsync( string data );
-#endif
-
-        #endregion
+       
     }
 }

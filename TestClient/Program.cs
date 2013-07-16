@@ -11,9 +11,7 @@
  */
 using System;
 using System.Collections.Generic;
-#if NET45
-using System.Threading.Tasks;
-#endif
+
 
 namespace Pop3.TestClient
 {
@@ -36,9 +34,7 @@ namespace Pop3.TestClient
             bool useSsl = ( Console.ReadLine( ) == "1" ? true : false );
 
             GetMessages( server, userName, password, useSsl );
-#if NET45
-            //GetMessagesAsync( server, userName, password, useSsl );
-#endif
+
 
             Console.WriteLine( "Press any key to close", Environment.NewLine );
             Console.ReadLine( );
@@ -85,44 +81,5 @@ namespace Pop3.TestClient
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
-
- #if NET45
-       public static async Task GetMessagesAsync( string server, string userName, string password, bool useSsl )
-        {
-            try
-            {
-                Pop3Client pop3Client = new Pop3Client( );
-
-                Console.WriteLine( "Connecting to POP3 server '{0}'...{1}", server, Environment.NewLine );
-
-                await pop3Client.ConnectAsync( server, userName, password, useSsl );
-
-                Console.WriteLine( "List and Retrieve Messages...{0}", Environment.NewLine );
-
-                IEnumerable<Pop3Message> messages = await pop3Client.ListAndRetrieveAsync( );
-
-                foreach ( Pop3Message message in messages )
-                {
-                    Console.WriteLine( "- Number: {0}", message.Number );
-                    Console.WriteLine( "\t* MessageId: {0}", message.MessageId );
-                    Console.WriteLine( "\t* Date: {0}", message.Date );
-                    Console.WriteLine( "\t* From: {0}", message.From );
-                    Console.WriteLine( "\t* To: {0}", message.To );
-                    Console.WriteLine( "\t* Subject: {0}", message.Subject );
-                    Console.WriteLine( "\t* Body Length: {0}", message.Body.Length );
-                    Console.WriteLine( );
-                }
-
-                Console.WriteLine( "Disconnecting...{0}", Environment.NewLine );
-                await pop3Client.DisconnectAsync( );
-            }
-            catch ( Exception ex )
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine( ex.Message );
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-        }
-#endif
     }
 }

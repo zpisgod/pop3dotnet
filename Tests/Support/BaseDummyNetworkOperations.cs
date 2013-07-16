@@ -38,36 +38,7 @@ namespace Pop3.Tests.Support
         
         #endregion
 
-        #region Public Async Methods
-
-#if NET45
-
-        public async Task OpenAsync( string hostName, int port )
-        {
-            await OpenAsync( hostName, port, false ).ConfigureAwait( false );
-        }
-
-        public async Task OpenAsync( string hostName, int port, bool useSsl )
-        {
-            await Task.Delay( 1 ).ConfigureAwait( false );
-        }
-
-        public async Task<string> ReadAsync( )
-        {
-            return await Task.Run( async ( ) =>
-                                    {
-                                        await Task.Delay( 0 );
-                                        return GetData( );
-                                    } ).ConfigureAwait( false );
-        }
-
-        public async Task WriteAsync( string data )
-        {
-            await Task.Delay( 0 ).ConfigureAwait( false );
-        }
-#endif
-
-        #endregion
+     
 
         #region Dispose-Finalize Pattern
 

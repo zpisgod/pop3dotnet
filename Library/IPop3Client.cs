@@ -59,39 +59,6 @@ namespace Pop3
 #endif
 
         #endregion
-
-        #region Async Methods
-
-#if NET45 || NETFX_CORE
-
-        Task ConnectAsync( string server, string userName, string password );
-        
-        Task ConnectAsync( string server, string userName, string password, bool useSsl );
-        
-        Task ConnectAsync( string server, string userName, string password, int port, bool useSsl );
-        
-        Task DisconnectAsync( );
-        
-        [SuppressMessage( "Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures" )]
-        Task<IEnumerable<Pop3Message>> ListAsync( );
-        
-        Task RetrieveAsync( Pop3Message message );
-        
-        Task RetrieveAsync( IEnumerable<Pop3Message> messages );
-        
-        Task RetrieveHeaderAsync( Pop3Message message );
-        
-        Task RetrieveHeaderAsync( IEnumerable<Pop3Message> messages );
-        
-        [SuppressMessage( "Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures" )]
-        Task<IEnumerable<Pop3Message>> ListAndRetrieveAsync( );
-        
-        [SuppressMessage( "Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures" )]
-        Task<IEnumerable<Pop3Message>> ListAndRetrieveHeaderAsync( );
-        
-        Task DeleteAsync( Pop3Message message );
-#endif
-
-        #endregion
+      
     }
 }

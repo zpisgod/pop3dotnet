@@ -109,70 +109,7 @@ namespace Pop3.IO
 
         #endregion
 
-        #region Public Async Methods
-
-#if NET45
-        public async Task OpenAsync( string hostName, int port )
-        {
-            await OpenAsync( hostName, port, false ).ConfigureAwait( false );
-        }
-
-        public async Task OpenAsync( string hostName, int port, bool useSsl )
-        {
-            if ( _tcpClient == null )
-            {
-                _tcpClient = new TcpClient( );
-                await _tcpClient.ConnectAsync( hostName, port ).ConfigureAwait( false );
-
-                if ( useSsl )
-                {
-                    _stream = new SslStream( _tcpClient.GetStream( ), false );
-                    ( (SslStream)_stream ).AuthenticateAsClient( hostName );
-                }
-                else
-                {
-                    _stream = _tcpClient.GetStream( );
-                }
-            }
-        }
-
-        public async Task<string> ReadAsync( )
-        {
-            if ( _stream == null )
-                throw new InvalidOperationException( "The Network Stream is null" );
-
-            byte[] data = new byte[ 1 ];
-            StringBuilder sb = new StringBuilder( );
-            UTF8Encoding enc = new UTF8Encoding( );
-
-            while ( true )
-            {
-                int dataLength = await _stream.ReadAsync( data, 0, 1 );
-                if ( dataLength != 1 )
-                    break;
-
-                sb.Append( enc.GetString( data, 0, 1 ) );
-
-                if ( data[ 0 ] == '\n' )
-                    break;
-            }
-
-            return sb.ToString( );
-        }
-
-        public async Task WriteAsync( string data )
-        {
-            if ( _stream == null )
-                throw new InvalidOperationException( "The Network Stream is null" );
-
-            UTF8Encoding en = new UTF8Encoding( );
-            byte[] writeBuffer = en.GetBytes( data );
-
-            await _stream.WriteAsync( writeBuffer, 0, writeBuffer.Length ).ConfigureAwait( false );
-        }
-#endif
-
-        #endregion
+     
 
         #endregion
 
